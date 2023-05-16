@@ -6,6 +6,7 @@ class Model(ABC):
     def __init__(self, model_type, do_train) -> None:
         self.model_type = model_type
         self.do_train = do_train
+        self.data = None
 
     @abstractmethod
     def inference(self):

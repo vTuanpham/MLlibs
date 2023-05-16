@@ -226,9 +226,38 @@ class SVD(Model):
     def __init__(self, model_type):
         super.__init__(model_type, do_train=False)
 
-    def insert_data(self, insert_mode="img", ):
+    def insert_data(self, insert_mode="img", data_path=None):
+        if data_path is not None:
+            try:
+                if insert_mode == "img":
+                    imgMatrix = np.array(cv.imread(data_path))
+                    self.data = imgMatrix
 
-    def inference(self):
+                    return 1
+
+                if insert_mode == "vid":
+                    readFps = cv.VideoCapture(vid)
+                    fps = readFps.get(cv.CAP_PROP_FPS)
+                    print(fps)
+                    print(rankk)
+                    vid = cv.VideoCapture(vid)
+                    orgimg_arr = []
+                    while True:
+                        success, frame = vid.read()
+                        if not success:
+                            cv.destroyAllWindows()
+                            break
+                        orgimg_arr.append(frame)
+
+                    self.data = orgimg_arr
+
+                    return 1
+            except:
+                raise "Unable to read files"
+        else:
+            raise "Data path is required"
+
+    def inference(self, multiThreaded=True, percentage=None, color_mode='rgb'):
 
     def save(self):
 
